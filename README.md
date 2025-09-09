@@ -53,7 +53,7 @@ mysql-connector-python==8.0.33
 ## Project Structure
 
 ```
-campusLink/
+CampusLink/
 │
 ├── app.py
 ├── static/
