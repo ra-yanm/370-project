@@ -56,23 +56,27 @@ mysql-connector-python==8.0.33
 campusLink/
 │
 ├── app.py
-├── requirements.txt
+├── static/
+│   ├── background-loop.gif
+│   ├── cl.png
+│   ├── style.css
 ├── templates/
 │   ├── base.html
 │   ├── login.html
 │   ├── home.html
 │   ├── ...
 │   └── alumni_meetups.html
+├── requirements.txt
 └── README.md
 ```
 
 ## Usage
 
 - **Login**: Use your user ID or email and password to log in.
-- **Notes**: Browse courses and notes, suggest edits, or add new notes (faculty/students).
+- **Notes**: Browse courses and notes, suggest edits, or add new notes (faculty/students/st).
 - **Requests**: Submit section swap or thesis group requests.
 - **Notices**: Post or view general and lost & found notices.
-- **Alumni**: Arrange or join meetups if you are an alumni.
+- **Alumni**: Arrange or join meetups if you are an alumni (alumni).
 
 ## Contributing
 
