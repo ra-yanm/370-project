@@ -17,7 +17,7 @@ CampusLink is a Flask-based web application designed for university students, fa
 ## Requirements
 
 - Python 3.10
-- MySQL Server
+- MariaDB Server
 - The following Python packages (see `requirements.txt`):
 
 ```
@@ -40,8 +40,7 @@ mysql-connector-python==8.0.33
     ```
 
 3. **Configure the Database**
-    - Create a MariaDB database named `notesflask`.
-    - Create the required tables (`user`, `student`, `courses`, `notes`, `note_suggestions`, `note_pending`, `section_swap`, `find_thesisgroup`, `accepted_invitations`, `ignored_requests`, `Notice`, `general_notice`, `lost_found_notice`, `Alumni`, etc.) according to your needs.
+    - Create a MariaDB database named `notesflask` using the `notesflask.sql`
     - Update the database credentials in `app.py` if necessary.
 
 4. **Run the Application**
@@ -66,8 +65,8 @@ CampusLink/
 │   ├── home.html
 │   ├── ...
 │   └── alumni_meetups.html
-├── requirements.txt
-└── README.md
+├── notesflask.sql
+└── requirements.txt
 ```
 
 ## Usage
