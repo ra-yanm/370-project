@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Alumni Meetups{% endblock %}
+
+{% block content %}
+
+<h1>Alumni Meetups</h1>
+<hr>
+<br>
+
+{% if meetups %}
+<h3>Available Meetups</h3>
+<hr>
+{% else %}
+<br>
+<p><i><b>No meetups were found.</b></i></p>
+{% endif %}
+
+<ol id="p2">
+    {% for meetup in meetups %}
+    <a id="nlist" href="/meetup_details/{{meetup.EvenID}}">
+        <li>
+            {{loop.index}}. {{meetup.Title}} | Batch {{meetup.Batch}}
+            <br>
+            <small style="color: #888;">
+                📅 {{meetup.Date}} | 📍 {{meetup.Location}} | 👤 {{meetup.arranged_by_name}}
+            </small>
+            {% if meetup.Arranged_by == current_user.userID %}
+            <mark>[Your Meetup]</mark>
+            {% endif %}
+        </li>
+    </a>
+    {% endfor %}
+</ol>
+
+<div style="text-align: right;">
+    {% if current_user.user_type == 'alumni' %}
+    <br>
+    <hr>
+    <br>
+        <a href="/add_meetup" style="
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #b0f0dd;
+            color: #191919;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        ">+ Arrange New Meetup</a>
+    {% endif %}
+</div>
+
+{% endblock %}

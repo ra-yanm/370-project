@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Requests{% endblock %}
+
+{% block content %}
+<div class="home-container text-center">
+    <h1>Select an option to continue:</h1>
+
+    <div class="nav-grid">
+            <a href="{{ url_for('section_swap') }}" class="nav-card" >🔄 Section Swap</a>
+
+            <a href="{{ url_for('find_thesisgroup') }}" class="nav-card">🎓 Find Thesis Group</a>
+
+            <a href="{{ url_for('view_accepted_invitations') }}" class="nav-card">✉️ Accepted Invitations</a>
+
+            <a href="{{ url_for('ignored_requests') }}" class="nav-card">🚫 Ignored Requests</a>
+
+            <a href="{{ url_for('my_active_requests') }}" class="nav-card">📌 My Active Requests</a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

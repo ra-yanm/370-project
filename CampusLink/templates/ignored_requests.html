@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Ignored Requests{% endblock %}
+
+{% block content %}
+<h1>Ignored Requests</h1>
+<hr>
+<br>
+{% if ignored %}
+<section class="suggestions-table">
+<table >
+    <tr>
+        <th>Type</th>
+        <th>Details</th>
+        <th>Ignored At</th>
+        <th>Actions</th>
+    </tr>
+    {% for r in ignored %}
+    <tr>
+        <td>{{ r.request_type|capitalize }}</td>
+        <td>
+            {% if r.request_type == "thesis" %}
+                <b>Topic:</b> {{ r.topic }} <br>
+                <b>Research Area:</b> {{ r.research_area }} <br>
+                <b>Group ID:</b> {{ r.group_id }}
+            {% elif r.request_type == "section" %}
+                <b>Course Code:</b> {{ r.course_code }} <br>
+                <b>Current Section:</b> {{ r.current_section }} <br>
+                <b>Desired Section:</b> {{ r.desired_section }} <br>
+                <b>Status:</b> {{ r.status }}
+            {% endif %}
+        </td>
+        <td>{{ r.ignored_at }}</td>
+        <td>
+            <div class="action-buttons">
+            {% if r.request_type == "thesis" and r.thesis_id %}                
+                <form  action="{{ url_for('accept_ignored_thesis', req_id=r.thesis_id) }}">
+                    <button type="submit" class="approve-btn">Request</button>
+                </form>
+            {% elif r.request_type == "section" and r.section_id and r.status != "accepted" %}
+                <form  action="{{ url_for('accept_ignored_section', req_id=r.section_id) }}">
+                    <button type="submit" class="approve-btn">Request</button>
+                </form>
+            {% endif %}
+
+            <form action="{{ url_for('delete_ignored_request', req_id=r.ignored_id) }}" method="POST" style="display:inline;">
+                <button type="submit" class="reject-btn">Delete</button>
+            </form>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</section>
+{% else %}
+<p>No Records Found.</p>
+{% endif %}
+{% endblock %}

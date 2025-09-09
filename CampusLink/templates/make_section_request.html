@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Make Section Swap Request{% endblock %}
+
+{% block content %}
+<h1>Make Section Swap Request</h1>
+<form id="suggestion-form" method="POST">
+    <h3>Course Code</h3>
+    <input type="text" name="course_code"  required><br>
+
+    <h3>Current Section</h3>
+    <input type="text" name="current_section"  required><br>
+
+    <h3>Desired Section</h3>
+    <input type="text"  name="desired_section" required><br>
+<br>
+    <button type="submit" >Submit</button>
+</form>
+{% endblock %}

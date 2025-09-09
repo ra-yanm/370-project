@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}Find Thesis Group{% endblock %}
+
+{% block content %}
+<h2>Find Thesis Group Requests</h2>
+
+<form style="min-width: 940px;" id="suggestion-form" method="POST" >
+    <div>
+        <input type="text" name="search" placeholder="Search by Topic or Research Area"
+               value="{{ search_query }}">
+    </div>
+    <div>
+        <button type="submit">Search</button>
+    </div>
+</form>
+<br><br>
+<hr style=" border: none; border-top: 1px solid #5e5e5e; min-width: 940px;">
+<br><br>
+{%if requests %}
+<h2>Available Requests</h2>
+<section class="suggestions-table">
+<table>
+<tr>
+    <th>Student</th>
+    <th>Email</th>
+    <th>Topic</th>
+    <th>Research Area</th>
+    <th>Group ID</th>
+    <th>Members Needed</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+{% for r in requests %}
+<tr>
+    <td>{{ r.name }}</td>
+    <td>
+        {% if r.id in user_actions and user_actions[r.id] == "accepted" %}
+            {{ r.email }}
+        {% else %}
+            <span class="text-muted">Hidden</span>
+        {% endif %}
+    </td>
+    <td>{{ r.topic }}</td>
+    <td>{{ r.research_area }}</td>
+    <td>{{ r.group_id }}</td>
+    <td>{{ r.members_needed }}</td>
+    <td>
+        {% if r.id in user_actions %}
+            {{ user_actions[r.id] | capitalize }}
+        {% else %}
+            Pending
+        {% endif %}
+    </td>
+    <td>
+        {% if r.id not in user_actions and r.student_id != logged_in_user_id %}
+            <div class="action-buttons">
+            <form  action="{{ url_for('update_thesis_request', req_id=r.id, action='accepted') }}">
+                <button type="submit" class="approve-btn">Request</button>
+            </form>
+            <form method="POST" action="{{ url_for('ignore_request', table='thesis', req_id=r.id) }}" >
+                <button type="submit" class="reject-btn">Ignore</button>
+            </form>
+            </div>
+        {% else %}
+            <span class="text-muted">No further action</span>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>
+</section>
+<br>
+<br>
+{% endif %}
+<a href="{{ url_for('make_thesis_request') }}"
+    style="display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #98f5d6;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;">
+    Make Request</a>
+{% endblock %}

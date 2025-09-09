@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Notices{% endblock %}
+
+{% block content %}
+
+<h1>Notices</h1>
+<hr>
+
+{% if notices %}
+<ol id="p2">
+    {% for notice in notices %}
+    <a id="nlist" href="/notice_details/{{notice.notice_id}}">
+        <li>
+            {{loop.index}}. {{notice.title}}
+            <span class="notice-type {{notice.type}}">{{notice.type|title}}</span>
+            <br>
+            <small style="color: #888;">
+                📝 {{notice.description[:100]}}{% if notice.description|length > 100 %}...{% endif %}
+                <br>
+                👤 {{notice.posted_by_name}} | 🆔 {{notice.notice_id}}
+            </small>
+            {% if notice.posted_by == current_user.userID %}
+            <mark>[Your Notice]</mark>
+            {% endif %}
+        </li>
+    </a>
+    {% endfor %}
+</ol>
+{% else %}
+<br>
+<p><i><b>No notices were found.</b></i></p>
+{% endif %}
+<div style="text-align: right;">
+    <br>
+    <hr>
+    <br>
+        <a href="/post_notice" style="
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #b0f0dd;
+            color: #191919;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        ">+ Post New Notice</a>
+</div>
+
+{% endblock %}

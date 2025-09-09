@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Meetup Details{% endblock %}
+
+{% block content %}
+
+<h1>Alumni Meetup Details</h1>
+<hr>
+<br>
+
+<div class="meetup-details">
+    <h2>{{ meetup.Title }}</h2>
+    
+    <div class="meetup-info">
+        <div class="info-item">
+            <div class="info-label">Date:</div>
+            <div class="info-value">📅 {{ meetup.Date }}</div>
+        </div>
+        
+        <div class="info-item">
+            <div class="info-label">Location:</div>
+            <div class="info-value">📍 {{ meetup.Location }}</div>
+        </div>
+        
+        <div class="info-item">
+            <div class="info-label">Batch:</div>
+            <div class="info-value">🎓 {{ meetup.Batch }}</div>
+        </div>
+        
+        <div class="info-item">
+            <div class="info-label">Organized By:</div>
+            <div class="info-value">👤 {{ meetup.arranged_by_name }}</div>
+        </div>
+        
+        <div class="info-item">
+            <div class="info-label">Event ID:</div>
+            <div class="info-value">#{{ meetup.EvenID }}</div>
+        </div>
+    </div>
+
+    {% if meetup.Arranged_by == current_user.userID %}
+        <div class="notice-actions">
+        <form action="/edit_meetup/{{ meetup.EvenID }}">
+        <button class="approve-btn">Edit Meetup</button>
+        </form>
+        <form method="POST" action="/delete_meetup/{{ meetup.EvenID }}" style="display: inline;">
+            <button type="submit" class="reject-btn" onclick="return confirm('Are you sure you want to delete this meetup?')">Delete Meetup</button>
+        </form>
+        </div>
+        {% endif %}
+        <br>
+            <a href="/alumni_meetups" >← Back to Meetups</a>
+
+</div>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='alumni_meetup2.css') }}">
+
+{% endblock %}

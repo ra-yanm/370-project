@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}My Active Requests{% endblock %}
+
+{% block content %}
+<h1>My Active Pending Requests</h1>
+<br>
+<h3>Thesis Group Requests</h3>
+{% if requests %}
+<section class="suggestions-table">
+<table>
+    <tr>
+        <th>Topic</th>
+        <th>Research Area</th>
+        <th>Group ID</th>
+        <th>Members Needed</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for req in requests %}
+    <tr>
+        <td>{{ req.topic }}</td>
+        <td>{{ req.research_area }}</td>
+        <td>{{ req.group_id }}</td>
+        <td>{{ req.members_needed }}</td>
+        <td>{{ req.status }}</td>
+        <td>
+            <form method="POST" action="{{ url_for('delete_request', table='thesis', req_id=req.id) }}">
+                <button type="submit" class="reject-btn" onclick="return confirm('Are you sure?');"> Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</section>
+{% else %}
+<p>No active thesis requests.</p>
+{% endif %}
+<br><br>
+<hr style=" border: none; border-top: 1px solid #5e5e5e;">
+<br><br>
+<h3>Section Swap Requests</h3>
+{% if section_requests %}
+<section class="suggestions-table">
+<table>
+    <tr>
+        <th>Course Code</th>
+        <th>Current Section</th>
+        <th>Desired Section</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    {% for req in section_requests %}
+    <tr>
+        <td>{{ req.course_code }}</td>
+        <td>{{ req.current_section }}</td>
+        <td>{{ req.desired_section }}</td>
+        <td>{{ req.status }}</td>
+        <td>
+            <form method="POST" action="{{ url_for('delete_request', table='section', req_id=req.id) }}">
+                <button type="submit" class="reject-btn" onclick="return confirm('Are you sure?');"> Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+</section>
+{% else %}
+<p>No active section swap requests.</p>
+{% endif %}
+{% endblock %}

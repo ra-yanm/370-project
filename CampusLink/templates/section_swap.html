@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Section Swap Requests{% endblock %}
+
+{% block content %}
+<h2>Search Section Swap Requests</h2>
+
+<form id="suggestion-form" method="POST" >
+    <div>
+        <input type="text" name="search" placeholder="Search by Course Code"
+               value="{{ search_query }}">
+    </div>
+    <div >
+        <button type="submit" class="btn btn-primary w-100">Search</button>
+    </div>
+</form>
+<br><br>
+<hr style=" border: none; border-top: 1px solid #5e5e5e;">
+<br><br>
+{%if requests %}
+<h2>Available Requests</h2>
+<section class="suggestions-table">
+<table>
+<tr>
+    <th>Student</th>
+    <th>Course Code</th>
+    <th>Current Section</th>
+    <th>Desired Section</th>
+    <th>Status</th>
+    <th>Action</th>
+</tr>
+{% for r in requests %}
+<tr>
+    <td>{{ r.name }}</td>
+    <td>{{ r.course_code }}</td>
+    <td>{{ r.current_section }}</td>
+    <td>{{ r.desired_section }}</td>
+    <td>{{ r.status }}</td>
+    <td>
+        {% if r.status == "pending" and r.user_ID != logged_in_user_id %}
+        <div class="action-buttons">
+            <form  action="{{ url_for('update_section_request', req_id=r.id, action='accepted') }}">
+                <button type="submit" class="approve-btn">Accept</button>
+            </form>
+            <form method="POST" action="{{ url_for('ignore_request', table='section', req_id=r.id) }}">
+                <button type="submit" class="reject-btn">Ignore</button>
+            </form>
+        </div>
+        {% else %}
+            <span class="text-muted">No further action</span>
+        {% endif %}
+    </td>
+</tr>
+{% endfor %}
+</table>
+</section>
+<br><br>
+{% endif %}
+<a href="{{ url_for('make_section_request') }}" 
+    style="display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #98f5d6;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;">
+            Make Request</a>
+{% endblock %}
+

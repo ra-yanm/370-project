@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Make Thesis Group Request{% endblock %}
+
+{% block content %}
+<h1>Make Thesis Group Request</h1>
+<form id="suggestion-form" method="POST">
+    <h3>Topic</h3>
+    <input type="text" name="topic"  required><br>
+
+    <h3>Research Area</h3>
+    <input type="text" name="research_area"  required><br>
+    
+    <h3>Members Needed [max 4]</h3>
+    <input type="number" name="members_needed" min="1" max="4" required><br>
+
+    <h3>Group ID</h3>
+    <input type="text" name="group_id" class="form-control" required><br>
+<br>
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+{% endblock %}

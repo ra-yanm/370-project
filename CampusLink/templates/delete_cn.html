@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Confirm Deletion{% endblock %}
+
+{% block content %}
+<div class="delete-confirmation-container">
+    <h1>Are you sure you want to delete this?</h1>
+    <hr>
+    <br>
+    <fieldset style="padding: 15px; background-color: #181818; min-width: 700px;">
+        {% if lec %}
+        <h2>Lecture Title: {{note.title}} [{{note.courseID}}]</h2><br>
+        <p>You are about to delete this note. This action is permanent and cannot be undone. All content related to this note will be completely wiped from the database.</p>
+        <br>
+        {% elif course %}
+        <h2>{{course}} : {{course_info.title}} </h2> <br>
+        <p>You are about to delete this entire course. This action is permanent and cannot be undone. All notes and content related to this course will be completely wiped from the database.</p>
+        <br>
+        {% endif %}
+    </fieldset><br>
+    {% if lec %}
+        <form action="/deleting" method="post" >
+                <input type="hidden" name="noteID" value="{{ lec }}">
+                <input type="hidden" name="courseID" value="{{ note.courseID }}">
+                <input type="hidden" name="buttton" value="lec">
+                <button type="submit" class="reject-btn">DELETE Note</button>
+        </form>
+    {% elif course %}
+        <form action="/deleting" method="post" >
+                <input type="hidden" name="courseID" value="{{ course }}">
+                <input type="hidden" name="buttton" value="course_">
+                <button type="submit" class="reject-btn">DELETE Course</button>
+        </form>
+    {% endif %}
+</div>
+{% endblock %}

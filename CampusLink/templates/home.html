@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="home-container">
+    <h1>Welcome, {{ user_name }}</h1>
+    <p>Select an option to continue:</p>
+
+    <div class="nav-grid">
+        {%if current_user.user_type=='alumni' %}
+        <a href="/alumni_meetups" class="nav-card">🧑‍🎓 Alumni Section</a>
+        {% endif %}
+        <a href="/notes" class="nav-card">📚 Browse Courses</a>
+        {%if current_user.user_type=='student' or current_user.user_type=='st' %}
+        <a href="/requests" class="nav-card">🔄 Section Swap/Thesis Requests</a>
+        {% endif %}
+        {%if current_user.user_type!='alumni' %}
+        <a href="/notices" class="nav-card">📢 Notice Board</a>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+{% endblock %}
