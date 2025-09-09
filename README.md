@@ -40,7 +40,7 @@ mysql-connector-python==8.0.33
     ```
 
 3. **Configure the Database**
-    - Create a MySQL database named `notesflask`.
+    - Create a MariaDB database named `notesflask`.
     - Create the required tables (`user`, `student`, `courses`, `notes`, `note_suggestions`, `note_pending`, `section_swap`, `find_thesisgroup`, `accepted_invitations`, `ignored_requests`, `Notice`, `general_notice`, `lost_found_notice`, `Alumni`, etc.) according to your needs.
     - Update the database credentials in `app.py` if necessary.
 
@@ -48,7 +48,7 @@ mysql-connector-python==8.0.33
     ```sh
     python app.py
     ```
-    The app will be available at [http://127.0.0.1:5000](http://127.0.0.1:5000).
+    The app will be available at localhost
 
 ## Project Structure
 
